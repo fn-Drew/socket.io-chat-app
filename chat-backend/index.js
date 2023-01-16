@@ -23,6 +23,12 @@ io.on('connection', (socket) => {
   })
 })
 
+io.on('connection', (socket) => {
+  socket.on('chat message', (message) => {
+    io.emit('chat message', message)
+  })
+})
+
 const PORT = 3001
 server.listen(PORT, () => {
   console.log(`listening on *:${PORT}`)
