@@ -6,10 +6,28 @@ const App = () => {
   const [text, setText] = useState('')
   const [textSent, setTextSent] = useState('')
   const [textReceived, setTextReceived] = useState('')
+  const [isConnected, setIsConnected] = useState(socket.connected)
+
   const sendMessage = () => {
     socket.emit('send_message', { text })
     setTextSent(text)
   }
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      setIsConnected(true)
+    })
+
+    socket.on('disconnect', () => {
+      setIsConnected(false)
+    })
+
+    return () => {
+      socket.off('connect')
+      socket.off('disconnect')
+      socket.off('pong')
+    }
+  }, [])
 
   useEffect(() => {
     socket.on('receive_message', (message) => {
@@ -19,6 +37,7 @@ const App = () => {
 
   return (
     <div>
+      <div>Connected: {'' + isConnected}</div>
       <input
         placeholder='message...'
         onChange={(event) => setText(event.target.value)}
