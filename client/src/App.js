@@ -36,13 +36,21 @@ const App = () => {
   }, [socket])
 
   return (
-    <div>
+    <div className='max-w-3xl m-auto'>
       <div>Connected: {'' + isConnected}</div>
-      <input
-        placeholder='message...'
-        onChange={(event) => setText(event.target.value)}
-      />
-      <button onClick={sendMessage}> Send</button>
+      <div className='p-24 flex'>
+        <input
+          placeholder='message...'
+          onChange={(event) => setText(event.target.value)}
+          className='basis-3/4 p-4 border-2 border-black rounded-l-full'
+        />
+        <button
+          onClick={sendMessage}
+          className='basis-1/4 text-xl bg-black -translate-x-10 text-white rounded-full min-w-[4.5rem]'
+        >
+          Send
+        </button>
+      </div>
       <div>received texts:</div>
       {textReceived}
       <div>sent texts:</div>
