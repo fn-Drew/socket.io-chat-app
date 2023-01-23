@@ -3,25 +3,19 @@ import io from 'socket.io-client'
 const socket = io.connect('http://localhost:3001')
 
 const App = () => {
-  const [text, setText] = useState('')
-  const [textSent, setTextSent] = useState('')
-  const [textReceived, setTextReceived] = useState('')
-  const [isConnected, setIsConnected] = useState(socket.connected)
+  const [sentText, setSentText] = useState('')
 
-  const sendMessage = () => {
-    socket.emit('send_message', { text })
-    setTextSent(text)
-  }
+  const [yourTexts, setYourTexts] = useState([])
+
+  const [isConnected, setIsConnected] = useState(socket.connected)
 
   useEffect(() => {
     socket.on('connect', () => {
       setIsConnected(true)
     })
-
     socket.on('disconnect', () => {
       setIsConnected(false)
     })
-
     return () => {
       socket.off('connect')
       socket.off('disconnect')
@@ -29,19 +23,33 @@ const App = () => {
     }
   }, [])
 
-  useEffect(() => {
-    socket.on('receive_message', (message) => {
-      setTextReceived(message.text)
-    })
-  }, [socket])
+  // useEffect(() => {
+  socket.on('receive_message', (message) => {
+    setYourTexts([...yourTexts, { message: message.sentText, sent: false }])
+    console.log(yourTexts)
+  })
+  // }, [socket])
+
+  const sendMessage = () => {
+    socket.emit('send_message', { sentText })
+    setYourTexts([...yourTexts, { message: sentText, sent: true }])
+    console.log(yourTexts)
+  }
 
   return (
     <div className='max-w-3xl m-auto'>
       <div>Connected: {'' + isConnected}</div>
+
+      <div>texts array:
+        {yourTexts.map((text, i) =>
+          <div className={`${text.sent ? 'text-green-500' : 'text-red-500'}`} key={i + 1}>{text.message}</div>
+        )}
+      </div>
+
       <div className='p-24 flex'>
         <input
           placeholder='message...'
-          onChange={(event) => setText(event.target.value)}
+          onInput={(event) => setSentText(event.target.value)}
           className='basis-3/4 p-4 border-2 border-black rounded-l-full'
         />
         <button
@@ -51,10 +59,7 @@ const App = () => {
           Send
         </button>
       </div>
-      <div>received texts:</div>
-      {textReceived}
-      <div>sent texts:</div>
-      {textSent}
+
     </div>
   )
 }
