@@ -22,8 +22,15 @@ io.on('connection', (socket) => {
   })
 
   socket.on('send_message', (message) => {
-    console.log(message)
+    console.log('Message sent')
+    console.log('Message: ', message)
     socket.broadcast.emit('receive_message', message)
+  })
+
+  socket.on('update_username', (username) => {
+    socket.username = username
+    console.log(`[Username Update] ${username} ${socket.id}`)
+    console.log(socket.username)
   })
 })
 
