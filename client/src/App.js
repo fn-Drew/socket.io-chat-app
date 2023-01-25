@@ -53,9 +53,9 @@ const App = () => {
   const messagesEndRef = useRef(null)
 
   return (
-    <div className='max-w-3xl p-12 py-24 h-screen m-auto'>
+    <div className='max-w-3xl h-screen m-auto'>
 
-      <div className='flex flex-col justify-between rounded-3xl px-4 border-black border-4 min-h-full'>
+      <div className='flex flex-col justify-between min-h-full'>
 
         <div className='bg-white p-8 flex max-h-[70vh] overflow-auto flex-col'>
           {yourTexts.map((text, i) => {
@@ -70,21 +70,21 @@ const App = () => {
           <div className='p-6' ref={messagesEndRef} />
         </div>
 
-        <div className='p-24 flex'>
+        <div className='p-24 justify-center flex'>
           <input
             placeholder='message...'
             onInput={(event) => setSentText(event.target.value)}
-            className='basis-3/4 p-4 border-2 border-black rounded-l-full'
+            className='basis-3/4 p-4 border-2 focus:ring-2 ring-black ring-inset pr-10 ml-6 border-black rounded-l-full outline-none'
           />
           <button
             onClick={sendMessage}
-            className='basis-1/4 text-xl bg-black -translate-x-10 text-white rounded-full min-w-[4.5rem]'
+            className='basis-1/4 text-xl bg-black px-4 -translate-x-8 text-white rounded-full'
           >
             Send
           </button>
         </div>
 
-        <div className='px-24 pb-24 flex'>
+        <div className='px-24 justify-center pb-24 flex'>
           <input
             placeholder='username...'
             onInput={(event) => setUsername(event.target.value)}
@@ -92,7 +92,7 @@ const App = () => {
           />
           <button
             onClick={updateUsername}
-            className='basis-1/4 text-xl bg-black -translate-x-10 text-white rounded-full min-w-[4.5rem]'
+            className='basis-1/4 text-xl bg-black -translate-x-10 text-white rounded-full'
           >
             Update
           </button>
