@@ -2,6 +2,7 @@ import { React, useEffect, useState, useRef } from 'react'
 import io from 'socket.io-client'
 import ConversationBox from './components/render/ConversationBox'
 import PinScrollBottom from './components/PinScrollBottom'
+import MessageInput from './components/render/MessageInput'
 const socket = io.connect('http://localhost:3001')
 
 const App = () => {
@@ -61,17 +62,7 @@ const App = () => {
         </div>
 
         <div className='p-24 justify-center flex'>
-          <input
-            placeholder='message...'
-            onInput={(event) => setSentText(event.target.value)}
-            className='basis-3/4 p-4 border-2 focus:ring-2 ring-black ring-inset pr-10 ml-6 border-black rounded-l-full outline-none'
-          />
-          <button
-            onClick={sendMessage}
-            className='basis-1/4 text-xl bg-black px-4 -translate-x-8 text-white rounded-full'
-          >
-            Send
-          </button>
+          <MessageInput setSentText={setSentText} sendMessage={sendMessage} />
         </div>
 
         <div className='px-24 justify-center pb-24 flex'>
