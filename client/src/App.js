@@ -49,36 +49,42 @@ const App = () => {
   }
 
   return (
-    <div className='max-w-3xl h-screen m-auto'>
+    <div className='max-w-3xl flex flex-col h-[100dvh] m-auto'>
 
-      <div className='flex flex-col justify-between min-h-full'>
-
-        <div className='bg-white p-8 flex max-h-[70vh] overflow-auto flex-col'>
-          <ConversationBox yourTexts={yourTexts} messagesEndRef={messagesEndRef} />
-          <div className='p-12' ref={messagesEndRef} />
+      <div className='flex justify-between bg-black text-white p-8 '>
+        <div>
+          burger
         </div>
-
-        <div className='p-24 justify-center flex'>
-          <MessageInput setSentText={setSentText} sendMessage={sendMessage} />
+        <div>
+          room: whatever
         </div>
-
-        <div className='px-24 justify-center pb-24 flex'>
-          <input
-            placeholder='username...'
-            onInput={(event) => setUsername(event.target.value)}
-            className='basis-3/4 p-4 border-2 border-black rounded-l-full'
-          />
-          <button
-            onClick={updateUsername}
-            className='basis-1/4 text-xl bg-black -translate-x-10 text-white rounded-full'
-          >
-            Update
-          </button>
+        <div>
+          {'' + isConnected}
         </div>
-
       </div>
 
-      <div>Connected: {'' + isConnected}</div>
+      <div className='grow flex max-h-full overflow-auto flex-col'>
+        <ConversationBox yourTexts={yourTexts} messagesEndRef={messagesEndRef} />
+        <div className='p-12' ref={messagesEndRef} />
+      </div>
+
+      <div className='justify-center p-10 border-t-4 border-black flex'>
+        <MessageInput setSentText={setSentText} sendMessage={sendMessage} />
+      </div>
+
+      <div className='justify-center hidden flex'>
+        <input
+          placeholder='username...'
+          onInput={(event) => setUsername(event.target.value)}
+          className='basis-3/4 p-4 border-2 border-black rounded-l-full'
+        />
+        <button
+          onClick={updateUsername}
+          className='basis-1/4 text-xl bg-black -translate-x-10 text-white rounded-full'
+        >
+          Update
+        </button>
+      </div>
 
     </div>
   )
