@@ -8,11 +8,8 @@ const socket = io.connect('http://localhost:3001')
 const App = () => {
   const [sentText, setSentText] = useState('')
   const [username, setUsername] = useState('')
-
   const [yourTexts, setYourTexts] = useState([])
-
   const [isConnected, setIsConnected] = useState(socket.connected)
-
   const messagesEndRef = useRef(null)
 
   useEffect(() => {

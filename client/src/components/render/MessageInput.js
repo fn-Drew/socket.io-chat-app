@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const MessageInput = (setSentText, sendMessage) => {
+const MessageInput = ({ setSentText, sendMessage }) => {
   return (
     <>
       <input
@@ -16,6 +17,11 @@ const MessageInput = (setSentText, sendMessage) => {
       </button>
     </>
   )
+}
+
+MessageInput.propTypes = {
+  setSentText: PropTypes.func,
+  sendMessage: PropTypes.func
 }
 
 export default MessageInput
