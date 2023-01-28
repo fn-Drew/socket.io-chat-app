@@ -19,6 +19,7 @@ const App = () => {
     socket.emit('send_message', { sentMessage, username })
     setTotalMessages([...totalMessages, { message: sentMessage, sent: true, toUser: username }])
     PinScrollBottom(messagesEndRef)
+    setSentMessage('')
   }
 
   const updateUsername = () => {
@@ -66,7 +67,7 @@ const App = () => {
       </div>
 
       <div className='justify-center p-10 border-t-4 border-black flex'>
-        <MessageInput setSentMessage={setSentMessage} sendMessage={sendMessage} />
+        <MessageInput setSentMessage={setSentMessage} sentMessage={sentMessage} sendMessage={sendMessage} />
       </div>
 
     </div>
